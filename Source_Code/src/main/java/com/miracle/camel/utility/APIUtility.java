@@ -28,7 +28,18 @@ public class APIUtility implements Processor {
 	}
 
 	@Override
-	public void process(Exchange exchange) throws Exception {
-		getAllRoutes(exchange.getIn().getHeader("CamelFileName").toString());
+	public void process(Exchange exchange){
+		String fileName = exchange.getIn().getHeader("CamelFileName").toString().trim();
+		System.out.println(fileName+" load routes");
+		try {
+			if (fileName.endsWith(".xml")) {
+				getAllRoutes(fileName);	
+			}else {
+				System.out.println("Omitting "+fileName+" as it is not in xml format");
+			}
+		} catch (Exception exception) 
+		{
+			System.out.println("RouteLoader :"+fileName+" : "+exception.getMessage().toString().trim());
+		}
 	}
 }

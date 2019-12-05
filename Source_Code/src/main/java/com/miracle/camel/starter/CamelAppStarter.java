@@ -23,7 +23,11 @@ public class CamelAppStarter implements CamelContextAware, CommandLineRunner {
 	private static CamelContext camelContext = null;
  
 	public static void main(String[] args) {
-		SpringApplication.run(CamelAppStarter.class, args);
+		try {
+			SpringApplication.run(CamelAppStarter.class, args);
+		} catch (Exception exception) {
+			System.out.println(exception.getMessage().toString().trim());
+		}
 	}
 
 	@SuppressWarnings("static-access")
